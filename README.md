@@ -2,7 +2,7 @@
 
 感谢大家的关注与支持，最近工作上比较忙，很难抽出时间来更新~
 
-第三方框架的内容总算是在11月底前更新了……结构方面还需要再优化一下，然后12月底前打算再整理一下面试题相关的内容，后面计划会给大家制作一份知识体系图……
+结构方面还需要再优化一下，然后打算再整理一下面试题相关的内容，后面计划会给大家制作一份知识体系图……
 
 Emm……辛辛苦苦种树……确定不来个Star鼓励一下？
 
@@ -638,12 +638,12 @@ Android开发核心知识点笔记-目录：
 
 ## QQ群
 
-Android开发交流QQ群：**1087509153**  （备注一下GitHub，免得被认成打无良广告的）
+Android开发交流QQ群：**1078864380**  （备注一下GitHub，免得被认成打无良广告的）
 
-快捷加群方式：[点击此处加入群聊Android开发交流群](https://jq.qq.com/?_wv=1027&k=CGMn8PQu)
+快捷加群方式：[点击此处加入群聊Android开发交流群](https://jq.qq.com/?_wv=1027&k=VG8FccoS)
 
 <div align="center">
-<img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/Android%E5%BC%80%E5%8F%91%E4%BA%A4%E6%B5%81%E7%BE%A4%E7%BE%A4%E8%81%8A%E4%BA%8C%E7%BB%B4%E7%A0%81.png">
+<img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/Android%E5%BC%80%E5%8F%91%E4%BA%A4%E6%B5%812%E7%BE%A4%E7%BE%A4%E8%81%8A%E4%BA%8C%E7%BB%B4%E7%A0%81.png">
 </div>
 
 >PS：
