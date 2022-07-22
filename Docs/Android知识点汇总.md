@@ -130,18 +130,18 @@ override fun onSaveInstanceState(outState: Bundle?) {
 }
 ```
 ## 启动模式
-| LaunchMode | 说明                      
+| LaunchMode | 说明 |
 |----------|-----|
 | standard | 系统在启动它的任务中创建 activity 的新实例 |
 | singleTop | 如果activity的实例已存在于当前任务的顶部，则系统通过调用其onNewIntent()，否则会创建新实例 |
 | singleTask | 系统创建新 task 并在 task 的根目录下实例化 activity。但如果 activity 的实例已存在于单独的任务中，则调用其 onNewIntent() 方法，其上面的实例会被移除栈。一次只能存在一个 activity 实例 |
 | singleInstance | 相同 singleTask，activity始终是其task的唯一成员; 任何由此开始的activity 都在一个单独的 task 中打开 |
 &nbsp;
-<!-- | 使用Intent标志 | 说明                      
+| 使用Intent标志 | 说明 |
 |----------|-----|
 | FLAG_ACTIVITY_NEW_TASK | 同 singleTask |
 | FLAG_ACTIVITY_SINGLE_TOP | 同 singleTop |
-| FLAG_ACTIVITY_CLEAR_TOP | 如果正在启动的 activity 已在当前 task中 运行，则不会启动该activity 的新实例，而是销毁其上的 activity，并调用其 onNewIntent() | -->
+| FLAG_ACTIVITY_CLEAR_TOP | 如果正在启动的 activity 已在当前 task中 运行，则不会启动该activity 的新实例，而是销毁其上的 activity，并调用其 onNewIntent() |
 
 ## 启动过程
 ![](https://img-blog.csdn.net/20180427173504903)
@@ -422,7 +422,7 @@ public class Installer extends ContentProvider {
 >- ContentProvider 屏蔽了数据存储的细节，内部实现透明化，用户只需关心 uri 即可(是否匹配)
 >- ContentProvider 能实现不同 app 的数据共享，sql 只能是自己程序才能访问
 >- Contentprovider 还能增删本地的文件,xml等信息
- 
+
 # 数据存储
 | 存储方式 | 说明 |
 |-----|-----|
@@ -453,11 +453,11 @@ MeasureSpec表示的是一个32位的整形值，它的高2位表示测量模式
 
 对于 DecorView 而言，它的MeasureSpec 由窗口尺寸和其自身的 LayoutParams 共同决定；对于普通的 View，它的 MeasureSpec 由父视图的 MeasureSpec 和其自身的 LayoutParams 共同决定
 
-| childLayoutParams/parentSpecMode | EXACTLY | AT_MOST 
-|--|--|--
-| dp/px | EXACTLY(childSize) | EXACTLY(childSize)
-| match_parent | EXACTLY(childSize) | AT_MOST(parentSize)
-| wrap_content | AT_MOST(parentSize) | AT_MOST(parentSize)
+| childLayoutParams/parentSpecMode | EXACTLY | AT_MOST |
+|--|--|-- |
+| dp/px | EXACTLY(childSize) | EXACTLY(childSize) |
+| match_parent | EXACTLY(childSize) | AT_MOST(parentSize) |
+| wrap_content | AT_MOST(parentSize) | AT_MOST(parentSize) |
 
 
 直接继承 View 的控件需要重写 onMeasure 方法并设置 wrap_content 时的自身大小，因为 View 在布局中使用 wrap_content，那么它的 specMode 是 AT_MOST 模式，在这种模式下，它的宽/高等于父容器当前剩余的空间大小，就相当于使用 match_parent。这解决方式如下：
@@ -480,12 +480,12 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 ```
 
 ## MotionEvent
-| 事件 | 说明 
-|-----|------
-| ACTION_DOWN | 手指刚接触到屏幕 
-| ACTION_MOVE | 手指在屏幕上移动
-| ACTION_UP | 手机从屏幕上松开的一瞬间
-| ACTION_CANCEL | 触摸事件取消
+| 事件 | 说明 |
+|-----|------ |
+| ACTION_DOWN | 手指刚接触到屏幕 |
+| ACTION_MOVE | 手指在屏幕上移动 |
+| ACTION_UP | 手机从屏幕上松开的一瞬间 |
+| ACTION_CANCEL | 触摸事件取消 |
 
 点击屏幕后松开，事件序列为 DOWN -> UP，点击屏幕滑动松开，事件序列为 DOWN -> MOVE -> ...> MOVE -> UP。
 
@@ -709,19 +709,19 @@ public void draw(Canvas canvas) {
 
 ## 自定义 View
 - 继承 View 重写 ``onDraw`` 方法
-  
+
 主要用于实现一些不规则的效果，静态或者动态地显示一些不规则的图形，即重写 ``onDraw`` 方法。采用这种方式需要自己支持 wrap_content，并且 padding 也需要自己处理。
 
 - 继承 ViewGroup 派生特殊的 Layout
-  
+
 主要用于实现自定义布局，采用这种方式需要合适地处理 ViewGroup 的测量、布局两个过程，并同时处理子元素的测量和布局过程。
 
 - 继承特定的 View
-  
+
 用于扩张某种已有的View的功能
 
 - 继承特定的 ViewGroup
-  
+
 用于扩张某种已有的ViewGroup的功能
 
 # 进程
@@ -792,24 +792,24 @@ public class MyApplication extends Application {
 
 ## 进程存活
 ### OOM_ADJ
-| ADJ级别 | 取值 | 解释
-|-----|-----|------
-| UNKNOWN_ADJ | 16 | 一般指将要会缓存进程，无法获取确定值
-| CACHED_APP_MAX_ADJ | 15 | 不可见进程的adj最大值
-| CACHED_APP_MIN_ADJ | 9 | 不可见进程的adj最小值
-| SERVICE_B_AD | 8 | B List 中的 Service（较老的、使用可能性更小）
-| PREVIOUS_APP_ADJ | 7 | 上一个App的进程(往往通过按返回键)
-| HOME_APP_ADJ | 6 | Home进程
-| SERVICE_ADJ | 5 | 服务进程(Service process)
-| HEAVY_WEIGHT_APP_ADJ | 4 | 后台的重量级进程，system/rootdir/init.rc 文件中设置
-| BACKUP_APP_ADJ | 3 | 备份进程
-| PERCEPTIBLE_APP_ADJ | 2 | 可感知进程，比如后台音乐播放
-| VISIBLE_APP_ADJ | 1 | 可见进程(Visible process)
-| FOREGROUND_APP_ADJ | 0 | 前台进程（Foreground process)
-| PERSISTENT_SERVICE_ADJ | -11 | 关联着系统或persistent进程
-| PERSISTENT_PROC_ADJ | -12 | 系统 persistent 进程，比如telephony
-| SYSTEM_ADJ | -16 | 系统进程
-| NATIVE_ADJ | -17 | native进程（不被系统管理）
+| ADJ级别 | 取值 | 解释 |
+|-----|-----|------ |
+| UNKNOWN_ADJ | 16 | 一般指将要会缓存进程，无法获取确定值 |
+| CACHED_APP_MAX_ADJ | 15 | 不可见进程的adj最大值 |
+| CACHED_APP_MIN_ADJ | 9 | 不可见进程的adj最小值 |
+| SERVICE_B_AD | 8 | B List 中的 Service（较老的、使用可能性更小） |
+| PREVIOUS_APP_ADJ | 7 | 上一个App的进程(往往通过按返回键) |
+| HOME_APP_ADJ | 6 | Home进程 |
+| SERVICE_ADJ | 5 | 服务进程(Service process) |
+| HEAVY_WEIGHT_APP_ADJ | 4 | 后台的重量级进程，system/rootdir/init.rc 文件中设置 |
+| BACKUP_APP_ADJ | 3 | 备份进程 |
+| PERCEPTIBLE_APP_ADJ | 2 | 可感知进程，比如后台音乐播放 |
+| VISIBLE_APP_ADJ | 1 | 可见进程(Visible process) |
+| FOREGROUND_APP_ADJ | 0 | 前台进程（Foreground process) |
+| PERSISTENT_SERVICE_ADJ | -11 | 关联着系统或persistent进程 |
+| PERSISTENT_PROC_ADJ | -12 | 系统 persistent 进程，比如telephony |
+| SYSTEM_ADJ | -16 | 系统进程 |
+| NATIVE_ADJ | -17 | native进程（不被系统管理） |
 
 ### 进程被杀情况
 ![](https://pic3.zhimg.com/80/18b6bfb1bf54433619a7122c3a8e606e_hd.png)
@@ -868,12 +868,12 @@ public class User implements Parcelable {
 ## 方法说明
 Parcel 内部包装了可序列化的数据，可以在 Binder 中自由传输。序列化功能由 ``writeToParcel`` 方法完成，最终是通过 Parcel 中的一系列 write 方法完成。反序列化功能由 CREATOR 来完成，通过 Parcel 的一系列 read 方法来完成反序列化过程。
 
-| 方法 | 功能
-|--|--
-| createFromParcel(Parcel in) | 从序列化后的对象中创建原始对象
-| newArray(int size) | 创建指定长度的原始对象数组
-| User(Parcel in) | 从序列化后的对象中创建原始对象
-| writeToParcel(Parcel dest, int flags) | 将当前对象写入序列化结构中，其中 flags 标识有两种值：0 或者 1。为 1 时标识当前对象需要作为返回值返回，不能立即释放资源，几乎所有情况都为 0
+| 方法 | 功能 |
+|--|-- |
+| createFromParcel(Parcel in) | 从序列化后的对象中创建原始对象 |
+| newArray(int size) | 创建指定长度的原始对象数组 |
+| User(Parcel in) | 从序列化后的对象中创建原始对象 |
+| writeToParcel(Parcel dest, int flags) | 将当前对象写入序列化结构中，其中 flags 标识有两种值：0 或者 1。为 1 时标识当前对象需要作为返回值返回，不能立即释放资源，几乎所有情况都为 0 |
 | describeContents | 返回当前对象的内容描述。如果含有文件描述符，返回 1，否则返回 0，几乎所有情况都返回 0 |
 
 ## Parcelable 与 Serializable 对比
@@ -885,14 +885,14 @@ IPC 即 Inter-Process Communication (进程间通信)。Android 基于 Linux，�
 > 在 Linux 系统中，虚拟内存机制为每个进程分配了线性连续的内存空间，操作系统将这种虚拟内存空间映射到物理内存空间，每个进程有自己的虚拟内存空间，进而不能操作其他进程的内存空间，只有操作系统才有权限操作物理内存空间。 进程隔离保证了每个进程的内存安全。
 
 ## IPC方式
-| 名称 | 优点 | 缺点 | 适用场景
-|----|-----|----|----
-| Bundle | 简单易用 | 只能传输 Bundle 支持的数据类型 | 四大组件间的进程间通信
-| 文件共享 | 简单易用 | 不适合高并发场景，并且无法做到进程间即时通信|无并发访问情形，交换简单的数据实时性不高的场景
-| AIDL |功能强大，支持一对多并发通信，支持实时通信 | 使用稍复杂，需要处理好线程同步 | 一对多通信且有 RPC 需求
-| Messenger | 功能一般，支持一对多串行通信，支持实时通信|不能很处理高并发清醒，不支持 RPC，数据通过 Message 进行传输，因此只能传输 Bundle 支持的数据类型|低并发的一对多即时通信，无RPC需求，或者无需返回结果的RPC需求
-| ContentProvider | 在数据源访问方面功能强大，支持一对多并发数据共享，可通过 Call 方法扩展其他操作|可以理解为受约束的 AIDL，主要提供数据源的 CRUD 操作 | 一对多的进程间数据共享
-| Socket | 可以通过网络传输字节流，支持一对多并发实时通信 | 实现细节稍微有点烦琐，不支持直接的RPC | 网络数据交换
+| 名称 | 优点 | 缺点 | 适用场景 |
+|----|-----|----|---- |
+| Bundle | 简单易用 | 只能传输 Bundle 支持的数据类型 | 四大组件间的进程间通信 |
+| 文件共享 | 简单易用 | 不适合高并发场景，并且无法做到进程间即时通信|无并发访问情形，交换简单的数据实时性不高的场景 |
+| AIDL |功能强大，支持一对多并发通信，支持实时通信 | 使用稍复杂，需要处理好线程同步 | 一对多通信且有 RPC 需求 |
+| Messenger | 功能一般，支持一对多串行通信，支持实时通信|不能很处理高并发清醒，不支持 RPC，数据通过 Message 进行传输，因此只能传输 Bundle 支持的数据类型|低并发的一对多即时通信，无RPC需求，或者无需返回结果的RPC需求 |
+| ContentProvider | 在数据源访问方面功能强大，支持一对多并发数据共享，可通过 Call 方法扩展其他操作|可以理解为受约束的 AIDL，主要提供数据源的 CRUD 操作 | 一对多的进程间数据共享 |
+| Socket | 可以通过网络传输字节流，支持一对多并发实时通信 | 实现细节稍微有点烦琐，不支持直接的RPC | 网络数据交换 |
 
 ## Binder
 Binder 是 Android 中的一个类，实现了 IBinder 接口。从 IPC 角度来说，Binder 是 Android 中的一种扩进程通信方方式。从 Android 应用层来说，Binder 是客户端和服务器端进行通信的媒介，当 bindService 的时候，服务端会返回一个包含了服务端业务调用的 Binder 对象。
@@ -905,7 +905,7 @@ Binder 相较于传统 IPC 来说更适合于Android系统，具体原因的包�
 示例：
 
 - **新建AIDL接口文件**
-  
+
 ``RemoteService.aidl``
 ```java
 package com.example.mystudyapplication3;
@@ -1023,18 +1023,18 @@ public interface IRemoteService extends android.os.IInterface {
 }
 ```
 
-| 方法 | 含义
-|--|--
-| DESCRIPTOR | Binder 的唯一标识，一般用当前的 Binder 的类名表示
-| asInterface(IBinder obj) | 将服务端的 Binder 对象成客户端所需的 AIDL 接口类型对象，这种转换过程是区分进程的，如果位于同一进程，返回的就是 Stub 对象本身，否则返回的是系统封装后的 Stub.proxy 对象。
-| asBinder | 用于返回当前 Binder 对象
-| onTransact | 运行在服务端中的 Binder 线程池中，远程请求会通过系统底层封装后交由此方法来处理
+| 方法 | 含义 |
+|--|-- |
+| DESCRIPTOR | Binder 的唯一标识，一般用当前的 Binder 的类名表示 |
+| asInterface(IBinder obj) | 将服务端的 Binder 对象成客户端所需的 AIDL 接口类型对象，这种转换过程是区分进程的，如果位于同一进程，返回的就是 Stub 对象本身，否则返回的是系统封装后的 Stub.proxy 对象。 |
+| asBinder | 用于返回当前 Binder 对象 |
+| onTransact | 运行在服务端中的 Binder 线程池中，远程请求会通过系统底层封装后交由此方法来处理 |
 
-| 定向 tag | 含义
-|--|--
-| in | 数据只能由客户端流向服务端，服务端将会收到客户端对象的完整数据，客户端对象不会因为服务端对传参的修改而发生变动。
-| out | 数据只能由服务端流向客户端，服务端将会收到客户端对象，该对象不为空，但是它里面的字段为空，但是在服务端对该对象作任何修改之后客户端的传参对象都会同步改动。
-| inout | 服务端将会接收到客户端传来对象的完整信息，并且客户端将会同步服务端对该对象的任何变动。
+| 定向 tag | 含义 |
+|--|-- |
+| in | 数据只能由客户端流向服务端，服务端将会收到客户端对象的完整数据，客户端对象不会因为服务端对传参的修改而发生变动。 |
+| out | 数据只能由服务端流向客户端，服务端将会收到客户端对象，该对象不为空，但是它里面的字段为空，但是在服务端对该对象作任何修改之后客户端的传参对象都会同步改动。 |
+| inout | 服务端将会接收到客户端传来对象的完整信息，并且客户端将会同步服务端对该对象的任何变动。 |
 
 ### 流程
 ![](http://gityuan.com/images/binder/binder_start_service/binder_ipc_arch.jpg)
@@ -1122,11 +1122,11 @@ Messenger可以在不同进程中传递 Message 对象，在Message中放入我�
 ## Window 概念与分类
 Window 是一个抽象类，它的具体实现是 PhoneWindow。WindowManager 是外界访问 Window 的入口，Window 的具体实现位于 WindowManagerService 中，WindowManager 和 WindowManagerService 的交互是一个 IPC 过程。Android 中所有的视图都是通过 Window 来呈现，因此 Window 实际是 View 的直接管理者。
 
-| Window 类型 | 说明 | 层级
-|--|--|--
-| Application Window | 对应着一个 Activity | 1~99
-| Sub Window | 不能单独存在，只能附属在父 Window 中，如 Dialog 等 | 1000~1999
-| System Window | 需要权限声明，如 Toast 和 系统状态栏等 | 2000~2999
+| Window 类型 | 说明 | 层级 |
+|--|--|-- |
+| Application Window | 对应着一个 Activity | 1~99 |
+| Sub Window | 不能单独存在，只能附属在父 Window 中，如 Dialog 等 | 1000~1999 |
+| System Window | 需要权限声明，如 Toast 和 系统状态栏等 | 2000~2999 |
 
 ## Window 的内部机制
 Window 是一个抽象的概念，每一个 Window 对应着一个 View 和一个 ViewRootImpl。Window 实际是不存在的，它是以 View 的形式存在。对 Window 的访问必须通过 WindowManager，WindowManager 的实现类是 WindowManagerImpl：
@@ -1411,23 +1411,23 @@ private void scheduleTimeoutLocked(ToastRecord r, boolean immediate)
 - Config 是用来设置颜色配置信息
 - CompressFormat 是用来设置压缩方式
 
-| Config | 单位像素所占字节数 | 解析 
-|-------|-------|------
-| Bitmap.Config.ALPHA_8 | 1 | 颜色信息只由透明度组成，占8位 
-| Bitmap.Config.ARGB_4444 | 2 |颜色信息由rgba四部分组成，每个部分都占4位，总共占16位 
-| Bitmap.Config.ARGB_8888 | 4 |颜色信息由rgba四部分组成，每个部分都占8位，总共占32位。是Bitmap默认的颜色配置信息，也是最占空间的一种配置
-| Bitmap.Config.RGB_565 | 2 | 颜色信息由rgb三部分组成，R占5位，G占6位，B占5位，总共占16位
-| RGBA_F16 | 8 | Android 8.0 新增（更丰富的色彩表现HDR）
-| HARDWARE | Special | Android 8.0 新增 （Bitmap直接存储在graphic memory）
+| Config | 单位像素所占字节数 | 解析 |
+|-------|-------|------ |
+| Bitmap.Config.ALPHA_8 | 1 | 颜色信息只由透明度组成，占8位 |
+| Bitmap.Config.ARGB_4444 | 2 |颜色信息由rgba四部分组成，每个部分都占4位，总共占16位 |
+| Bitmap.Config.ARGB_8888 | 4 |颜色信息由rgba四部分组成，每个部分都占8位，总共占32位。是Bitmap默认的颜色配置信息，也是最占空间的一种配置 |
+| Bitmap.Config.RGB_565 | 2 | 颜色信息由rgb三部分组成，R占5位，G占6位，B占5位，总共占16位 |
+| RGBA_F16 | 8 | Android 8.0 新增（更丰富的色彩表现HDR） |
+| HARDWARE | Special | Android 8.0 新增 （Bitmap直接存储在graphic memory） |
 
 > 通常我们优化 Bitmap 时，当需要做性能优化或者防止 OOM，我们通常会使用 Bitmap.Config.RGB_565 这个配置，因为 Bitmap.Config.ALPHA_8 只有透明度，显示一般图片没有意义，Bitmap.Config.ARGB_4444 显示图片不清楚， Bitmap.Config.ARGB_8888 占用内存最多。
 
-| CompressFormat | 解析 
-|-------|-------
+| CompressFormat | 解析 |
+|-------|------- |
 | Bitmap.CompressFormat.JPEG | 表示以 JPEG 压缩算法进行图像压缩，压缩后的格式可以是 ``.jpg`` 或者 ``.jpeg``，是一种有损压缩 |
 | Bitmap.CompressFormat.PNG | 颜色信息由 rgba 四部分组成，每个部分都占 4 位，总共占 16 位 |
-| Bitmap.Config.ARGB_8888 | 颜色信息由 rgba 四部分组成，每个部分都占 8 位，总共占 32 位。是 Bitmap 默认的颜色配置信息，也是最占空间的一种配置
-| Bitmap.Config.RGB_565 | 颜色信息由 rgb 三部分组成，R 占 5 位，G 占 6 位，B 占 5 位，总共占 16 位
+| Bitmap.Config.ARGB_8888 | 颜色信息由 rgba 四部分组成，每个部分都占 8 位，总共占 32 位。是 Bitmap 默认的颜色配置信息，也是最占空间的一种配置 |
+| Bitmap.Config.RGB_565 | 颜色信息由 rgb 三部分组成，R 占 5 位，G 占 6 位，B 占 5 位，总共占 16 位 |
 
 ## 常用操作
 ### 裁剪、缩放、旋转、移动
@@ -1518,24 +1518,24 @@ public static Bitmap compressImage(Bitmap image) {
 
 
 ### Option类
-| 常用方法 | 说明
-|-----|------
-| boolean inJustDecodeBounds | 如果设置为true，不获取图片，不分配内存，但会返回图片的高度宽度信息
-| int inSampleSize | 图片缩放的倍数
-| int outWidth | 获取图片的宽度值
-| int outHeight | 获取图片的高度值
-| int inDensity | 用于位图的像素压缩比
-| int inTargetDensity | 用于目标位图的像素压缩比（要生成的位图）
-| byte[] inTempStorage | 创建临时文件，将图片存储
-| boolean inScaled | 设置为true时进行图片压缩，从inDensity到inTargetDensity
-| boolean inDither | 如果为true,解码器尝试抖动解码
-| Bitmap.Config inPreferredConfig | 设置解码器这个值是设置色彩模式，默认值是ARGB_8888，在这个模式下，一个像素点占用4bytes空间，一般对透明度不做要求的话，一般采用RGB_565模式，这个模式下一个像素点占用2bytes
-| String outMimeType | 设置解码图像
-| boolean inPurgeable | 当存储Pixel的内存空间在系统内存不足时是否可以被回收
-| boolean inInputShareable | inPurgeable为true情况下才生效，是否可以共享一个InputStream
-| boolean inPreferQualityOverSpeed | 为true则优先保证Bitmap质量其次是解码速度
-| boolean inMutable | 配置Bitmap是否可以更改，比如：在Bitmap上隔几个像素加一条线段
-| int inScreenDensity | 当前屏幕的像素密度
+| 常用方法 | 说明 |
+|-----|------ |
+| boolean inJustDecodeBounds | 如果设置为true，不获取图片，不分配内存，但会返回图片的高度宽度信息 |
+| int inSampleSize | 图片缩放的倍数 |
+| int outWidth | 获取图片的宽度值 |
+| int outHeight | 获取图片的高度值 |
+| int inDensity | 用于位图的像素压缩比 |
+| int inTargetDensity | 用于目标位图的像素压缩比（要生成的位图） |
+| byte[] inTempStorage | 创建临时文件，将图片存储 |
+| boolean inScaled | 设置为true时进行图片压缩，从inDensity到inTargetDensity |
+| boolean inDither | 如果为true,解码器尝试抖动解码 |
+| Bitmap.Config inPreferredConfig | 设置解码器这个值是设置色彩模式，默认值是ARGB_8888，在这个模式下，一个像素点占用4bytes空间，一般对透明度不做要求的话，一般采用RGB_565模式，这个模式下一个像素点占用2bytes |
+| String outMimeType | 设置解码图像 |
+| boolean inPurgeable | 当存储Pixel的内存空间在系统内存不足时是否可以被回收 |
+| boolean inInputShareable | inPurgeable为true情况下才生效，是否可以共享一个InputStream |
+| boolean inPreferQualityOverSpeed | 为true则优先保证Bitmap质量其次是解码速度 |
+| boolean inMutable | 配置Bitmap是否可以更改，比如：在Bitmap上隔几个像素加一条线段 |
+| int inScreenDensity | 当前屏幕的像素密度 |
 
 ### 基本使用
 ```java
@@ -1637,21 +1637,21 @@ private static void setCustomDensity(@NonNull Activity activity, @NonNull final 
 
 Android P 支持最新的全面屏以及为摄像头和扬声器预留空间的凹口屏幕。通过全新的 DisplayCutout 类，可以确定非功能区域的位置和形状，这些区域不应显示内容。要确定这些凹口屏幕区域是否存在及其位置，使用 getDisplayCutout() 函数。
 
-| DisplayCutout 类方法 | 说明
-|--|--
-| getBoundingRects() | 返回Rects的列表，每个Rects都是显示屏上非功能区域的边界矩形
-| getSafeInsetLeft () | 返回安全区域距离屏幕左边的距离，单位是px
-| getSafeInsetRight () | 返回安全区域距离屏幕右边的距离，单位是px
-| getSafeInsetTop () | 返回安全区域距离屏幕顶部的距离，单位是px
-| getSafeInsetBottom() | 返回安全区域距离屏幕底部的距离，单位是px
+| DisplayCutout 类方法 | 说明 |
+|--|-- |
+| getBoundingRects() | 返回Rects的列表，每个Rects都是显示屏上非功能区域的边界矩形 |
+| getSafeInsetLeft () | 返回安全区域距离屏幕左边的距离，单位是px |
+| getSafeInsetRight () | 返回安全区域距离屏幕右边的距离，单位是px |
+| getSafeInsetTop () | 返回安全区域距离屏幕顶部的距离，单位是px |
+| getSafeInsetBottom() | 返回安全区域距离屏幕底部的距离，单位是px |
 
 Android P 中 WindowManager.LayoutParams 新增了一个布局参数属性 layoutInDisplayCutoutMode：
 
-| 模式 | 模式说明
-|--|--
-| LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT | 只有当DisplayCutout完全包含在系统栏中时，才允许窗口延伸到DisplayCutout区域。 否则，窗口布局不与DisplayCutout区域重叠。
-| LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER | 该窗口决不允许与DisplayCutout区域重叠。
-| LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES | 该窗口始终允许延伸到屏幕短边上的DisplayCutout区域。
+| 模式 | 模式说明 |
+|--|-- |
+| LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT | 只有当DisplayCutout完全包含在系统栏中时，才允许窗口延伸到DisplayCutout区域。 否则，窗口布局不与DisplayCutout区域重叠。 |
+| LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER | 该窗口决不允许与DisplayCutout区域重叠。 |
+| LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES | 该窗口始终允许延伸到屏幕短边上的DisplayCutout区域。 |
 
 - Android P 之前的刘海屏适配
 
@@ -2002,12 +2002,12 @@ Android 的单线程模式必须遵守两条规则:
 AsyncTask 封装了 Thread 和 Handler，并不适合特别耗时的后台任务，对于特别耗时的任务来说，建议使用线程池。
 
 ### 基本使用
-| 方法 | 说明
-|--|--
-| onPreExecute() | 异步任务执行前调用，用于做一些准备工作
-| doInBackground(Params...params) | 用于执行异步任务，此方法中可以通过 publishProgress 方法来更新任务的进度，publishProgress 会调用 onProgressUpdate 方法
-| onProgressUpdate | 在主线程中执行，后台任务的执行进度发生改变时调用
-| onPostExecute | 在主线程中执行，在异步任务执行之后 
+| 方法 | 说明 |
+|--|-- |
+| onPreExecute() | 异步任务执行前调用，用于做一些准备工作 |
+| doInBackground(Params...params) | 用于执行异步任务，此方法中可以通过 publishProgress 方法来更新任务的进度，publishProgress 会调用 onProgressUpdate 方法 |
+| onProgressUpdate | 在主线程中执行，后台任务的执行进度发生改变时调用 |
+| onPostExecute | 在主线程中执行，在异步任务执行之后 |
 
 ```java
 import android.os.AsyncTask;
@@ -2222,12 +2222,12 @@ public ThreadPoolExecutor(int corePoolSize,
 }
 ```
 
-| 类型 | 创建方法 | 说明
-|--|--|--
-| FixedThreadPool | Executors.newFixedThreadPool(int nThreads) | 一种线程数量固定的线程池，只有核心线程并且不会被回收，没有超时机制
-| CachedThreadPool | Executors.newCachedThreadPool() | 一种线程数量不定的线程池，只有非核心线程，当线程都处于活动状态时，会创建新线程来处理新任务，否则会利用空闲的线程，超时时长为60s
-| ScheduledThreadPool | Executors.newScheduledThreadPool(int corePoolSize) | 核心线程数是固定的，非核心线程数没有限制，非核心线程闲置时立刻回收，主要用于执行定时任务和固定周期的重复任务
-| SingleThreadExecutor | Executors.newSingleThreadExecutor() | 只有一个核心线程，确保所有任务在同一线程中按顺序执行
+| 类型 | 创建方法 | 说明 |
+|--|--|-- |
+| FixedThreadPool | Executors.newFixedThreadPool(int nThreads) | 一种线程数量固定的线程池，只有核心线程并且不会被回收，没有超时机制 |
+| CachedThreadPool | Executors.newCachedThreadPool() | 一种线程数量不定的线程池，只有非核心线程，当线程都处于活动状态时，会创建新线程来处理新任务，否则会利用空闲的线程，超时时长为60s |
+| ScheduledThreadPool | Executors.newScheduledThreadPool(int corePoolSize) | 核心线程数是固定的，非核心线程数没有限制，非核心线程闲置时立刻回收，主要用于执行定时任务和固定周期的重复任务 |
+| SingleThreadExecutor | Executors.newSingleThreadExecutor() | 只有一个核心线程，确保所有任务在同一线程中按顺序执行 |
 
 # RecyclerView 优化
 - 数据处理和视图加载分离：数据的处理逻辑尽可能放在异步处理，onBindViewHolder 方法中只处理数据填充到视图中。
@@ -2699,7 +2699,7 @@ mWebview.setWebViewClient(new WebViewClient() {   
 - DNS和链接慢，想办法复用客户端使用的域名和链接。
 
 - 脚本执行慢，可以把框架代码拆分出来，在请求页面之前就执行好。
-  
+
 ![](https://awps-assets.meituan.net/mit-x/blog-images-bundle-2017/9a2f8beb.png)
 
 ## 内存泄漏

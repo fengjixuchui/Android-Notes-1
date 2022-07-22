@@ -50,7 +50,7 @@ ART 引入了预先编译机制，可提高应用的性能。ART 还具有比 Da
 
 ### 开发和调试方面的优化
 - 支持采样分析器
-  
+
 一直以来，开发者都使用 Traceview 工具（用于跟踪应用执行情况）作为分析器。虽然 Traceview 可提供有用的信息，但每次方法调用产生的开销会导致 Dalvik 分析结果出现偏差，而且使用该工具明显会影响运行时性能
 
 ART 添加了对没有这些限制的专用采样分析器的支持，因而可更准确地了解应用执行情况，而不会明显减慢速度。KitKat 版本为 Dalvik 的 Traceview 添加了采样支持。
@@ -61,7 +61,7 @@ ART 添加了对没有这些限制的专用采样分析器的支持，因而可�
 ART 支持许多新的调试选项，特别是与监控和垃圾回收相关的功能。例如，查看堆栈跟踪中保留了哪些锁，然后跳转到持有锁的线程；询问指定类的当前活动的实例数、请求查看实例，以及查看使对象保持有效状态的参考；过滤特定实例的事件（如断点）等。
 
 - 优化了异常和崩溃报告中的诊断详细信息
-  
+
 当发生运行时异常时，ART 会为您提供尽可能多的上下文和详细信息。ART 会提供 ``java.lang.ClassCastException``、``java.lang.ClassNotFoundException`` 和 ``java.lang.NullPointerException`` 的更多异常详细信息（较高版本的 Dalvik 会提供 ``java.lang.ArrayIndexOutOfBoundsException`` 和 ``java.lang.ArrayStoreException`` 的更多异常详细信息，这些信息现在包括数组大小和越界偏移量；ART 也提供这类信息）。
 
 ## ART GC
@@ -160,25 +160,25 @@ Proguard 具有以下三个功能：
 ## 规则
 - 关键字
 
- | 关键字 | 描述
-|--|--
-| keep | 保留类和类中的成员，防止被混淆或移除
-| keepnames | 保留类和类中的成员，防止被混淆，成员没有被引用会被移除
-| keepclassmembers | 只保留类中的成员，防止被混淆或移除
-| keepclassmembernames | 只保留类中的成员，防止被混淆，成员没有引用会被移除
-| keepclasseswithmembers | 保留类和类中的成员，防止被混淆或移除，保留指明的成员
-| keepclasseswithmembernames | 保留类和类中的成员，防止被混淆，保留指明的成员，成员没有引用会被移除
+| 关键字 | 描述 |
+|--|-- |
+| keep | 保留类和类中的成员，防止被混淆或移除 |
+| keepnames | 保留类和类中的成员，防止被混淆，成员没有被引用会被移除 |
+| keepclassmembers | 只保留类中的成员，防止被混淆或移除 |
+| keepclassmembernames | 只保留类中的成员，防止被混淆，成员没有引用会被移除 |
+| keepclasseswithmembers | 保留类和类中的成员，防止被混淆或移除，保留指明的成员 |
+| keepclasseswithmembernames | 保留类和类中的成员，防止被混淆，保留指明的成员，成员没有引用会被移除 |
 
  - 通配符
 
- | 通配符 | 描述
-|--|--
-| \<field\> | 匹配类中的所有字段
-| \<method\> | 匹配类中所有的方法
-| \<init\> | 匹配类中所有的构造函数
-| * | 匹配任意长度字符，不包含包名分隔符(.)
-| ** | 匹配任意长度字符，包含包名分隔符(.)
-| *** | 匹配任意参数类型
+| 通配符 | 描述 |
+|--|--|
+| \<field\> | 匹配类中的所有字段 |
+| \<method\> | 匹配类中所有的方法 |
+| \<init\> | 匹配类中所有的构造函数 |
+| * | 匹配任意长度字符，不包含包名分隔符(.) |
+| ** | 匹配任意长度字符，包含包名分隔符(.) |
+| *** | 匹配任意参数类型 |
 
  - 指定混淆时可使用字典
 ```
@@ -587,42 +587,42 @@ object InjectorUtils {
 ## JNI 基础
 ### 数据类型
 - 基本数据类型
-  
-| Java 类型 | Native 类型 | 符号属性 | 字长
-|--|--|--|--
-| boolean | jboolean | 无符号 | 8位
-| byte | jbyte | 无符号 | 8位
-| char | jchar | 无符号 | 16位
-| short | jshort | 有符号 | 16位
-| int | jnit | 有符号 | 32位
-| long | jlong | 有符号 | 64位
-| float | jfloat | 有符号 | 32位
-| double | jdouble | 有符号 | 64位
+
+| Java 类型 | Native 类型 | 符号属性 | 字长 |
+|--|--|--|-- |
+| boolean | jboolean | 无符号 | 8位 |
+| byte | jbyte | 无符号 | 8位 |
+| char | jchar | 无符号 | 16位 |
+| short | jshort | 有符号 | 16位 |
+| int | jnit | 有符号 | 32位 |
+| long | jlong | 有符号 | 64位 |
+| float | jfloat | 有符号 | 32位 |
+| double | jdouble | 有符号 | 64位 |
 
 - 引用数据类型
 
-| Java 引用类型	| Native 类型 | Java 引用类型 | Native 类型
-|--|--|--|--
-| All objects | jobject | char[] | jcharArray
-| java.lang.Class | jclass | short[] | jshortArray
-| java.lang.String | jstring | int[] | jintArray
-| Object[] | jobjectArray | long[] | jlongArray
-| boolean[] | jbooleanArray | float[] | jfloatArray
-| byte[] | jbyteArray | double[] | jdoubleArray
-| java.lang.Throwable | jthrowable	
+| Java 引用类型	| Native 类型 | Java 引用类型 | Native 类型 |
+|--|--|--|-- |
+| All objects | jobject | char[] | jcharArray |
+| java.lang.Class | jclass | short[] | jshortArray |
+| java.lang.String | jstring | int[] | jintArray |
+| Object[] | jobjectArray | long[] | jlongArray |
+| boolean[] | jbooleanArray | float[] | jfloatArray |
+| byte[] | jbyteArray | double[] | jdoubleArray |
+| java.lang.Throwable | jthrowable |
 
 ### String 字符串函数操作
-| JNI 函数 | 描述
-|--|--
-| GetStringChars / ReleaseStringChars | 获得或释放一个指向 Unicode 编码的字符串的指针（指 C/C++ 字符串）
-| GetStringUTFChars / ReleaseStringUTFChars | 获得或释放一个指向 UTF-8 编码的字符串的指针（指 C/C++ 字符串）
-| GetStringLength | 返回 Unicode 编码的字符串的长度
-| getStringUTFLength | 返回 UTF-8 编码的字符串的长度
-| NewString | 将 Unicode 编码的 C/C++ 字符串转换为 Java 字符串
-| NewStringUTF | 将 UTF-8 编码的 C/C++ 字符串转换为 Java 字符串
-| GetStringCritical / ReleaseStringCritical | 获得或释放一个指向字符串内容的指针(指 Java 字符串)
-| GetStringRegion | 获取或者设置 Unicode 编码的字符串的指定范围的内容
-| GetStringUTFRegion | 获取或者设置 UTF-8 编码的字符串的指定范围的内容
+| JNI 函数 | 描述 |
+|--|-- |
+| GetStringChars / ReleaseStringChars | 获得或释放一个指向 Unicode 编码的字符串的指针（指 C/C++ 字符串） |
+| GetStringUTFChars / ReleaseStringUTFChars | 获得或释放一个指向 UTF-8 编码的字符串的指针（指 C/C++ 字符串） |
+| GetStringLength | 返回 Unicode 编码的字符串的长度 |
+| getStringUTFLength | 返回 UTF-8 编码的字符串的长度 |
+| NewString | 将 Unicode 编码的 C/C++ 字符串转换为 Java 字符串 |
+| NewStringUTF | 将 UTF-8 编码的 C/C++ 字符串转换为 Java 字符串 |
+| GetStringCritical / ReleaseStringCritical | 获得或释放一个指向字符串内容的指针(指 Java 字符串) |
+| GetStringRegion | 获取或者设置 Unicode 编码的字符串的指定范围的内容 |
+| GetStringUTFRegion | 获取或者设置 UTF-8 编码的字符串的指定范围的内容 |
 
 ### 常用 JNI 访问 Java 对象方法
 ``MyJob.java``
@@ -878,13 +878,13 @@ Object* dvmInvokeMethod(Object* obj, const Method* method,
     }
     ···
 }
-``` -->
+​``` -->
 
 ## CMake 构建 NDK 项目
 > CMake 是一个开源的跨平台工具系列，旨在构建，测试和打包软件，从 Android Studio 2.2 开始，Android Sudio 默认地使用 CMake 与 Gradle 搭配使用来构建原生库。
 
 启动方式只需要在 ``app/build.gradle`` 中添加相关：
-```groovy
+​```groovy
 android {
     ···
     defaultConfig {
@@ -950,18 +950,18 @@ target_link_libraries( # Specifies the target library.
 - [CMake 命令详细信息文档](https://cmake.org/cmake/help/latest/manual/cmake-commands.7.html)
 
 ## 常用的 Android NDK 原生 API
-| 支持 NDK 的 API 级别 | 关键原生 API | 包括
-|--|--|--
-| 3 | Java 原生接口 | 	#include <jni.h>
-| 3 | Android 日志记录 API	| #include <android/log.h>
-| 5 | OpenGL ES 2.0 | #include <GLES2/gl2.h><br>#include <GLES2/gl2ext.h>
-| 8 | Android 位图 API | #include <android/bitmap.h>
-| 9 | OpenSL ES | #include <SLES/OpenSLES.h><br>#include <SLES/OpenSLES_Platform.h><br>#include <SLES/OpenSLES_Android.h><br>#include <SLES/OpenSLES_AndroidConfiguration.h>
-| 9 | 原生应用 API | #include <android/rect.h><br>#include <android/window.h><br>#include<android/native_activity.h><br>···
-| 18 | OpenGL ES 3.0 | #include <GLES3/gl3.h><br>#include <GLES3/gl3ext.h>
-| 21 | 原生媒体 API | #include <media/NdkMediaCodec.h><br>#include <media/NdkMediaCrypto.h><br>···
-| 24 | 原生相机 API | #include <camera/NdkCameraCaptureSession.h><br>#include <camera/NdkCameraDevice.h><br>···
-| ···
+| 支持 NDK 的 API 级别 | 关键原生 API | 包括 |
+|--|--|-- |
+| 3 | Java 原生接口 | 	#include <jni.h> |
+| 3 | Android 日志记录 API	| #include <android/log.h> |
+| 5 | OpenGL ES 2.0 | #include <GLES2/gl2.h><br>#include <GLES2/gl2ext.h> |
+| 8 | Android 位图 API | #include <android/bitmap.h> |
+| 9 | OpenSL ES | #include <SLES/OpenSLES.h><br>#include <SLES/OpenSLES_Platform.h><br>#include <SLES/OpenSLES_Android.h><br>#include <SLES/OpenSLES_AndroidConfiguration.h> |
+| 9 | 原生应用 API | #include <android/rect.h><br>#include <android/window.h><br>#include<android/native_activity.h><br>··· |
+| 18 | OpenGL ES 3.0 | #include <GLES3/gl3.h><br>#include <GLES3/gl3ext.h> |
+| 21 | 原生媒体 API | #include <media/NdkMediaCodec.h><br>#include <media/NdkMediaCrypto.h><br>··· |
+| 24 | 原生相机 API | #include <camera/NdkCameraCaptureSession.h><br>#include <camera/NdkCameraDevice.h><br>··· |
+| ··· |
 
 # 类加载器
 ![](https://img-blog.csdn.net/20161021101447117?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
